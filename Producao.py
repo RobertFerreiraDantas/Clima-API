@@ -2,6 +2,10 @@ import requests
 import pyodbc
 from dotenv import load_dotenv
 import os
+from flask import Flask
+
+app = Flask(__name__)  
+
 
 load_dotenv()
 
