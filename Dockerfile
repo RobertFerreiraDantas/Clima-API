@@ -1,24 +1,16 @@
-FROM python:3.11-slim
-
-
-RUN mkdir -p /var/lib/apt/lists/partial && chmod 755 /var/lib/apt/lists/partial
-
-
-RUN mkdir -p /var/lib/apt/lists/partial \
-    && apt-get update \
-    && apt-get install -y --no-install-recommends \
-       odbc-postgresql \
-       unixodbc \
-    && rm -rf /var/lib/apt/lists/*
-
+FROM python:3.12.3-slim
 
 WORKDIR /app
 
 
-COPY . /app
+COPY requirements.txt .
 
 
 RUN pip install --no-cache-dir -r requirements.txt
 
 
-CMD ["gunicorn", "Producao:app"]
+COPY . .
+
+
+CMD ["python", "Producao.py"]
+
