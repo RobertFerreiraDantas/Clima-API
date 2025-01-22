@@ -6,6 +6,7 @@ from sqlalchemy import create_engine
 from database import Base, projeto_clima
 import unidecode
 from datetime import datetime
+from flask import Flask
 
 load_dotenv()
 
@@ -67,6 +68,9 @@ def salvar_banco(dados):
     session.close()
 
 
+app = Flask(__name__)
+
+
 if __name__ == "__main__":
     try:
         for i in range(3):
@@ -84,5 +88,8 @@ if __name__ == "__main__":
                 salvar_banco(dado_tratado)
     except Exception as e:
         print(f"Erro :{e}")
+
+    port = int(os.environ.get('PORT', 5000))
+    app.run(debug=True, host="0.0.0.0", port=port)
 
 
