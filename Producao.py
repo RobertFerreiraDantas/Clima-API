@@ -70,6 +70,9 @@ def salvar_banco(dados):
 
 app = Flask(__name__)
 
+@app.route('/')
+def home():
+    return "Bem-vindo "
 
 if __name__ == "__main__":
     try:
