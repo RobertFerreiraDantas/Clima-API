@@ -10,19 +10,22 @@ from flask import Flask
 
 load_dotenv()
 
-POSTGRES_HOST = os.getenv('POSTGRES_HOST')
-POSTGRES_PORT = os.getenv('POSTGRES_PORT')
-POSTGRES_DATABASE = os.getenv('POSTGRES_DATABASE')
-POSTGRES_USER = os.getenv('POSTGRES_USER')
-POSTGRES_PASSWORD = os.getenv('POSTGRES_PASSWORD')
+try:
+    POSTGRES_HOST = os.getenv('POSTGRES_HOST')
+    POSTGRES_PORT = os.getenv('POSTGRES_PORT')
+    POSTGRES_DATABASE = os.getenv('POSTGRES_DATABASE')
+    POSTGRES_USER = os.getenv('POSTGRES_USER')
+    POSTGRES_PASSWORD = os.getenv('POSTGRES_PASSWORD')
 
-POSTGRES_URL = (
-    f"postgresql://{POSTGRES_USER}:{POSTGRES_PASSWORD}"
-    f"@{POSTGRES_HOST}:{POSTGRES_PORT}/{POSTGRES_DATABASE}?sslmode=require"
-)
+    POSTGRES_URL = (
+        f"postgresql://{POSTGRES_USER}:{POSTGRES_PASSWORD}"
+        f"@{POSTGRES_HOST}:{POSTGRES_PORT}/{POSTGRES_DATABASE}?sslmode=require"
+    )
+    engine = create_engine(POSTGRES_URL)
+    sessionLocal = sessionmaker(bind=engine)
 
-engine = create_engine(POSTGRES_URL)
-sessionLocal = sessionmaker(bind=engine)
+except Exception as e:
+    print(f"Erro, motivo :{e}")
 
 
 def criar_tabela():
@@ -30,13 +33,16 @@ def criar_tabela():
 
 
 def extracao(woeid):
-    url = f"https://api.hgbrasil.com/weather?key={os.getenv('API_KEY')}&woeid={woeid}"
+    try:
+        url = f"https://api.hgbrasil.com/weather?key={os.getenv('API_KEY')}&woeid={woeid}"
 
-    dados = requests.get(url)
-    dados.encoding = 'utf-8'
-    dados = dados.json()
+        dados = requests.get(url)
+        dados.encoding = 'utf-8'
+        dados = dados.json()
 
-    return dados
+        return dados
+    except Exception as E:
+        print(f"Erro, motivo : {E}")
 
 
 def transforma_dados(dados):
@@ -81,21 +87,21 @@ def atualizar_banco():
                 if dado_tratado["cidade"] == "São Paulo":
                     dado_tratado["cidade"] = unidecode.unidecode(dado_tratado["cidade"])
                 salvar_banco(dado_tratado)
-    except Exception as e:
-        print(f"Erro :{e}")
+    except Exception as E:
+        print(f"Erro :{E}")
 
 
 app = Flask(__name__)
 
+
 @app.route('/')
 def home():
-    atualizar_banco()   
+    atualizar_banco()
     return "Dados atualizados com sucesso!"
 
 
 if __name__ == "__main__":
-   
-    atualizar_banco()  
+    atualizar_banco()
 
     port = int(os.environ.get('PORT', 5000))
     app.run(debug=False, host="0.0.0.0", port=port)
