@@ -1,2 +1,2 @@
 # Clima-API
-O projeto ainda está em construção
+O projeto ainda está em construção e tem como objetivo extrair dados de uma API de clima da HG Brasil, obtendo informações climáticas de Recife, Rio de Janeiro e Manaus. A pipeline é focada no processo de ETL, e os dados serão carregados em um dashboard atualizado automaticamente na nuvem Render, todos os dias às 8 horas da manhã e às 6 da tarde. Serão utilizados PostgreSQL, nuvem, Python e Power BI.
