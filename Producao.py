@@ -96,7 +96,6 @@ app = Flask(__name__)
 
 @app.route('/')
 def home():
-    atualizar_banco()
     return "Dados atualizados com sucesso!"
 
 
