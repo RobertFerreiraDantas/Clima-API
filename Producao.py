@@ -91,6 +91,8 @@ def atualizar_banco():
         print(f"Erro :{E}")
 
 
+atualizar_banco()
+
 app = Flask(__name__)
 
 
@@ -100,7 +102,6 @@ def home():
 
 
 if __name__ == "__main__":
-    atualizar_banco()
 
     port = int(os.environ.get('PORT', 5000))
     app.run(debug=False, host="0.0.0.0", port=port)
