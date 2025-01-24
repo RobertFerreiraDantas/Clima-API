@@ -10,7 +10,6 @@ from flask import Flask
 
 load_dotenv()
 
-
 POSTGRES_HOST = os.getenv('POSTGRES_HOST')
 POSTGRES_PORT = os.getenv('POSTGRES_PORT')
 POSTGRES_DATABASE = os.getenv('POSTGRES_DATABASE')
@@ -21,7 +20,6 @@ POSTGRES_URL = (
     f"postgresql://{POSTGRES_USER}:{POSTGRES_PASSWORD}"
     f"@{POSTGRES_HOST}:{POSTGRES_PORT}/{POSTGRES_DATABASE}?sslmode=require"
 )
-
 
 engine = create_engine(POSTGRES_URL)
 sessionLocal = sessionmaker(bind=engine)
@@ -54,7 +52,6 @@ def transforma_dados(dados):
         "descricao": descricao,
         "temperatura": temperatura,
         "hora": hora
-
     }
 
     return dados_transformados
@@ -68,18 +65,13 @@ def salvar_banco(dados):
     session.close()
 
 
-app = Flask(__name__)
-
-@app.route('/')
-def home():
-    return "Bem-vindo "
-
-if __name__ == "__main__":
+def atualizar_banco():
     try:
         for i in range(3):
             cidades = [455825, 455833, 455824]
             dado = extracao(woeid=cidades[i])
             if i == 0:
+                # Limpar os registros no banco de dados
                 sessio = sessionLocal()
                 sessio.query(projeto_clima).delete()
                 sessio.commit()
@@ -92,7 +84,19 @@ if __name__ == "__main__":
     except Exception as e:
         print(f"Erro :{e}")
 
+
+app = Flask(__name__)
+
+@app.route('/')
+def home():
+    atualizar_banco()   
+    return "Dados atualizados com sucesso!"
+
+
+if __name__ == "__main__":
+   
+    atualizar_banco()  
+
     port = int(os.environ.get('PORT', 5000))
     app.run(debug=False, host="0.0.0.0", port=port)
-
 
