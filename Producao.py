@@ -6,7 +6,7 @@ from sqlalchemy import create_engine
 from database import Base, projeto_clima
 import unidecode
 from datetime import datetime
-from flask import Flask
+
 
 load_dotenv()
 
@@ -91,18 +91,9 @@ def atualizar_banco():
         print(f"Erro :{E}")
 
 
-atualizar_banco()
-
-app = Flask(__name__)
-
-
-@app.route('/')
-def home():
-    return "Dados atualizados com sucesso!"
 
 
 if __name__ == "__main__":
 
-    port = int(os.environ.get('PORT', 5000))
-    app.run(debug=False, host="0.0.0.0", port=port)
+    atualizar_banco()
 
