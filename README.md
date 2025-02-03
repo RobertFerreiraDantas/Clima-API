@@ -1,7 +1,7 @@
 # Clima-API
 # Coletor de Dados Meteorológicos
 
-Este projeto coleta dados climáticos de três cidades utilizando a API do HG Brasil e os armazena em um banco de dados PostgreSQL no Render. Ele realiza a extração dos dados, transforma as informações relevantes e as insere em uma tabela chamada clima_cidade, para depois essas informações serem colocadas dentro de um dashboard no Power BI.
+Este projeto coleta dados climáticos de três cidades utilizando a API do HG Brasil e os armazena em um banco de dados PostgreSQL no Render. Ele realiza a extração dos dados, transforma as informações relevantes e as insere em uma tabela chamada clima_cidade, para posterior uso em um dashboard no Power BI.
 
 ## Funcionalidades
 - Conexão segura com o banco de dados via SQLAlchemy e Psycopg2-binary
