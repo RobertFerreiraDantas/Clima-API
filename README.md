@@ -50,7 +50,7 @@ Com os dados armazenados no banco, podemos gerar insights valiosos, como:
 Se você quiser melhorar esse projeto, fique à vontade para abrir uma issue ou enviar um pull request!
 
 ## Atualização
-Em 06/02/2025, consegui montar os dashboards junto com a automatação. Por isso, estarei desativando a automatação do projeto e ele ficará disponível ao público para as pessoas verem como o Clima-API funcionava, se quiser, veja os commits anteriores e os dashboards no meu Linkedln. 
+Em 06/02/2025, consegui montar os dashboards junto com a automação. Por isso, estarei desativando a automação do projeto e ele ficará disponível ao público para as pessoas verem como o Clima-API funcionava, se quiser, veja os commits anteriores e os dashboards no meu Linkedln. 
 
 ## Contato
 
